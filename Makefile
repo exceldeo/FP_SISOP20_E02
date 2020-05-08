@@ -184,6 +184,7 @@ UPROGS=\
 	_wc\
 	_mv\
 	_cd\
+	_head\
 	_zombie\
 
 fs.img: mkfs README $(UPROGS)

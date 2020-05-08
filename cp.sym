@@ -31,6 +31,7 @@
 00000b02 write
 00000b3a fstat
 00000b12 kill
+000000f0 strcat
 00000b52 chdir
 00000b1a exec
 00000aea wait
@@ -57,7 +58,6 @@
 00000910 strlen
 00000b22 open
 00000960 strchr
-000000f0 strgabung
 00000570 cpRec
 00000b4a mkdir
 00000b0a close

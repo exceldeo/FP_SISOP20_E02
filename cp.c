@@ -12,7 +12,7 @@ char * getfname(char * path){
     return id;
 }
 
-char * strgabung(char * x,char * y){
+char * strcat(char * x,char * y){
     int i,j;
     char str2[100];
 	strcpy(str1,x); strcpy(str2,y);
@@ -46,9 +46,9 @@ char *p;
 	fname = getfname(src);
 	p = dst+strlen(dst)-1;
   	if(*p != '/'){
-    		dst = strgabung(dst,"/");
+    		dst = strcat(dst,"/");
   	}
-	fname = strgabung(dst,fname);
+	fname = strcat(dst,fname);
 	strcpy(dst,fname);
   }
   }
@@ -180,10 +180,10 @@ cpRec(char *path, char *dst) {
         char k[20];
 	strcpy(k,getfname(baf));
 	if(strcmp(k,".")==0||strcmp(k,"..")==0)   continue;
-	  mkdir(strgabung(strgabung(dst,"/"),getfname(baf)));
+	  mkdir(strcat(strcat(dst,"/"),getfname(baf)));
       
 	  printf(1,"Create Folder : %s inside %s\n",baf,dst);
-	  cpRec(baf,strgabung(strgabung(dst,"/"),getfname(baf)));
+	  cpRec(baf,strcat(strcat(dst,"/"),getfname(baf)));
 	}
     }
     break;

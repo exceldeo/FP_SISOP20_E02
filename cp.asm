@@ -121,14 +121,14 @@ char * getfname(char * path){
   e4:	8d b6 00 00 00 00    	lea    0x0(%esi),%esi
   ea:	8d bf 00 00 00 00    	lea    0x0(%edi),%edi
 
-000000f0 <strgabung>:
-char * strgabung(char * x,char * y){
+000000f0 <strcat>:
+char * strcat(char * x,char * y){
   f0:	55                   	push   %ebp
   f1:	89 e5                	mov    %esp,%ebp
   f3:	53                   	push   %ebx
 	strcpy(str1,x); strcpy(str2,y);
   f4:	8d 5d 94             	lea    -0x6c(%ebp),%ebx
-char * strgabung(char * x,char * y){
+char * strcat(char * x,char * y){
   f7:	83 ec 7c             	sub    $0x7c,%esp
 	strcpy(str1,x); strcpy(str2,y);
   fa:	ff 75 08             	pushl  0x8(%ebp)
@@ -143,14 +143,14 @@ char * strgabung(char * x,char * y){
  112:	83 c4 10             	add    $0x10,%esp
  115:	31 c0                	xor    %eax,%eax
  117:	80 3d 60 14 00 00 00 	cmpb   $0x0,0x1460
- 11e:	74 0c                	je     12c <strgabung+0x3c>
+ 11e:	74 0c                	je     12c <strcat+0x3c>
  120:	83 c0 01             	add    $0x1,%eax
  123:	80 b8 60 14 00 00 00 	cmpb   $0x0,0x1460(%eax)
- 12a:	75 f4                	jne    120 <strgabung+0x30>
+ 12a:	75 f4                	jne    120 <strcat+0x30>
    for(j=0; str2[j]!='\0'; ++j, ++i)
  12c:	0f b6 55 94          	movzbl -0x6c(%ebp),%edx
  130:	84 d2                	test   %dl,%dl
- 132:	74 1d                	je     151 <strgabung+0x61>
+ 132:	74 1d                	je     151 <strcat+0x61>
  134:	29 c3                	sub    %eax,%ebx
  136:	89 d9                	mov    %ebx,%ecx
  138:	90                   	nop
@@ -161,7 +161,7 @@ char * strgabung(char * x,char * y){
  146:	83 c0 01             	add    $0x1,%eax
  149:	0f b6 14 01          	movzbl (%ecx,%eax,1),%edx
  14d:	84 d2                	test   %dl,%dl
- 14f:	75 ef                	jne    140 <strgabung+0x50>
+ 14f:	75 ef                	jne    140 <strcat+0x50>
    str1[i]='\0';
  151:	c6 80 60 14 00 00 00 	movb   $0x0,0x1460(%eax)
 }
@@ -277,18 +277,18 @@ void cpone(char * src, char * dst){
  262:	83 c4 10             	add    $0x10,%esp
  265:	80 7c 01 ff 2f       	cmpb   $0x2f,-0x1(%ecx,%eax,1)
  26a:	74 14                	je     280 <cpone+0x110>
-    		dst = strgabung(dst,"/");
+    		dst = strcat(dst,"/");
  26c:	83 ec 08             	sub    $0x8,%esp
  26f:	68 a7 0f 00 00       	push   $0xfa7
  274:	51                   	push   %ecx
- 275:	e8 76 fe ff ff       	call   f0 <strgabung>
+ 275:	e8 76 fe ff ff       	call   f0 <strcat>
  27a:	83 c4 10             	add    $0x10,%esp
  27d:	89 45 0c             	mov    %eax,0xc(%ebp)
-	fname = strgabung(dst,fname);
+	fname = strcat(dst,fname);
  280:	83 ec 08             	sub    $0x8,%esp
  283:	56                   	push   %esi
  284:	ff 75 0c             	pushl  0xc(%ebp)
- 287:	e8 64 fe ff ff       	call   f0 <strgabung>
+ 287:	e8 64 fe ff ff       	call   f0 <strcat>
 	strcpy(dst,fname);
  28c:	59                   	pop    %ecx
  28d:	5e                   	pop    %esi
@@ -790,7 +790,7 @@ cpRec(char *path, char *dst) {
  77f:	83 c4 10             	add    $0x10,%esp
  782:	85 c0                	test   %eax,%eax
  784:	0f 84 2b ff ff ff    	je     6b5 <cpRec+0x145>
-	  mkdir(strgabung(strgabung(dst,"/"),getfname(baf)));
+	  mkdir(strcat(strcat(dst,"/"),getfname(baf)));
  78a:	8d 85 e8 fd ff ff    	lea    -0x218(%ebp),%eax
  790:	83 ec 0c             	sub    $0xc,%esp
  793:	50                   	push   %eax
@@ -800,13 +800,13 @@ cpRec(char *path, char *dst) {
  7a0:	5a                   	pop    %edx
  7a1:	68 a7 0f 00 00       	push   $0xfa7
  7a6:	ff 75 0c             	pushl  0xc(%ebp)
- 7a9:	e8 42 f9 ff ff       	call   f0 <strgabung>
+ 7a9:	e8 42 f9 ff ff       	call   f0 <strcat>
  7ae:	59                   	pop    %ecx
  7af:	5a                   	pop    %edx
  7b0:	8b 95 3c fd ff ff    	mov    -0x2c4(%ebp),%edx
  7b6:	52                   	push   %edx
  7b7:	50                   	push   %eax
- 7b8:	e8 33 f9 ff ff       	call   f0 <strgabung>
+ 7b8:	e8 33 f9 ff ff       	call   f0 <strcat>
  7bd:	89 04 24             	mov    %eax,(%esp)
  7c0:	e8 85 03 00 00       	call   b4a <mkdir>
 	  printf(1,"Create Folder : %s inside %s\n",baf,dst);
@@ -816,7 +816,7 @@ cpRec(char *path, char *dst) {
  7cf:	68 0d 10 00 00       	push   $0x100d
  7d4:	6a 01                	push   $0x1
  7d6:	e8 55 04 00 00       	call   c30 <printf>
-	  cpRec(baf,strgabung(strgabung(dst,"/"),getfname(baf)));
+	  cpRec(baf,strcat(strcat(dst,"/"),getfname(baf)));
  7db:	8d 85 e8 fd ff ff    	lea    -0x218(%ebp),%eax
  7e1:	83 c4 14             	add    $0x14,%esp
  7e4:	50                   	push   %eax
@@ -826,13 +826,13 @@ cpRec(char *path, char *dst) {
  7f1:	58                   	pop    %eax
  7f2:	68 a7 0f 00 00       	push   $0xfa7
  7f7:	ff 75 0c             	pushl  0xc(%ebp)
- 7fa:	e8 f1 f8 ff ff       	call   f0 <strgabung>
+ 7fa:	e8 f1 f8 ff ff       	call   f0 <strcat>
  7ff:	5a                   	pop    %edx
  800:	8b 95 3c fd ff ff    	mov    -0x2c4(%ebp),%edx
  806:	59                   	pop    %ecx
  807:	52                   	push   %edx
  808:	50                   	push   %eax
- 809:	e8 e2 f8 ff ff       	call   f0 <strgabung>
+ 809:	e8 e2 f8 ff ff       	call   f0 <strcat>
  80e:	5a                   	pop    %edx
  80f:	59                   	pop    %ecx
  810:	50                   	push   %eax
